@@ -1,0 +1,11 @@
+.button {
+font-size: 15px;
+font-weight: bold;
+
+}
+
+.buttonGood, .buttonNeutral, .buttonBad, .buttonReset {
+border: solid black;
+margin-left: 15px;
+background-color: lightgray;
+}
