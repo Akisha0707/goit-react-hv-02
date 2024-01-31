@@ -1,5 +1,6 @@
 import css from './App.module.css';
-import {useState } from 'react'
+import { useState, useEffect } from 'react'
+import Notification from '../Notification/Notification';
 import Description from '../Description/Description';
 import Feedback from '../Feedback/Feedback';
 import Options from '../Options/Options';
@@ -8,48 +9,61 @@ import Options from '../Options/Options';
 
 const App = () => {
 
-  const [clicks, setClicks] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0
+  const [feedback, setFeedback] = useState({ good: 0, neutral: 0, bad: 0 })
+  console.log (setFeedback)
+  
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+
+  useEffect(() => {
+    window.localStorage.setItem('feedback:', JSON.stringify(feedback))
   })
 
   const changeClicksGood = () => {
-    setClicks({
-      ...clicks,
-      good: clicks.good + 1,
+    setFeedback({
+      ...feedback,
+      good: feedback.good + 1,
     })
   }
   
-  const changeClicksNeutal = () => {
-    setClicks({
-      ...clicks,
-      neutral: clicks.neutral + 1,
+  const changeClicksNeutral = () => {
+    setFeedback({
+      ...feedback,
+      neutral: feedback.neutral + 1,
    })
   }
-  
+
   const changeClicksBad = () => {
-    setClicks({
-      ...clicks,
-      bad: clicks.bad + 1,
+    setFeedback({
+      ...feedback,
+      bad: feedback.bad + 1,
     })
+  }
+ 
+  const changeClicksReset = () => {
+    setFeedback({
+      good: 0,
+      neutral: 0,
+      bad: 0
+   })
   }
 
  return (
     <>
      <Description />
-     <Options  />
-     <Feedback value= {changeClicksGood} />
-    
-     <div>
-        <ul className={css.options }>
-         <li onClick = {changeClicksGood}> Good: {clicks.good}</li>
-         <li onClick = {changeClicksNeutal}> Neutral: {clicks.neutral}</li>
-         <li onClick = {changeClicksBad}> Bad: {clicks.bad}</li>
-         {/* <li className={css.feedbackTotal}>Total: {good + neutral + bad}</li> */}
-           {/* <li className={css.feedbackPositive}>Positive: {good + neutral}</li> */}
-           </ul>
-    </div>
+     
+     <Options
+       changeClicksGood={changeClicksGood}
+       changeClicksNeutral={changeClicksNeutral}
+       changeClicksBad={changeClicksBad}
+       changeClicksReset={changeClicksReset}
+       totalFeedback={totalFeedback} />     
+     
+     <Notification totalFeedback={totalFeedback} />
+     
+     <Feedback
+       feedback={feedback}
+       totalFeedback={totalFeedback}/>
+
     </>
   );
 };
