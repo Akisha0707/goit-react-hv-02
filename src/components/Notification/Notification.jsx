@@ -1,13 +1,10 @@
 import css from './Notification.module.css'
 
-const Notification = ({ totalFeedback }) => {
+const Notification = () => {
     
     return (
-        <div className={css.feedbackMessage}>
-            { totalFeedback === 0 &&
-                < p className={css.feedbackParagraph}> No feedback yet </p>}
-        </div>
-    )
+      <p className={css.feedbackParagraph}> No feedback yet </p>
+)
 }
 
 export default Notification;
