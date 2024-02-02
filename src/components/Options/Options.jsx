@@ -1,16 +1,16 @@
 import css from './Options.module.css';
 
 
-const Options = ({changeClicksGood, changeClicksNeutral, changeClicksBad, changeClicksReset, totalFeedback}) => {
+const Options = ({handleGoodFeedback, handleNeutralFeedback, handleBadFeedback, handleResetFeedback, totalFeedback}) => {
   
   return (
     <div className={css.button}>
-      <button className={css.buttonGood} type="button" onClick={changeClicksGood}>Good</button>
-      <button className={css.buttonNeutral} type="button" onClick={changeClicksNeutral}>Neutral</button>
-      <button className={css.buttonBad} type="button" onClick={changeClicksBad}>Bad</button>
+      <button className={css.buttonGood} type="button" onClick={handleGoodFeedback}>Good</button>
+      <button className={css.buttonNeutral} type="button" onClick={handleNeutralFeedback}>Neutral</button>
+      <button className={css.buttonBad} type="button" onClick={handleBadFeedback}>Bad</button>
       
       {totalFeedback > 0 &&
-        <button className={css.buttonReset} type="button" onClick={changeClicksReset}>Reset</button>
+        <button className={css.buttonReset} type="button" onClick={handleResetFeedback}>Reset</button>
       }
         </div>
   );

@@ -8,38 +8,45 @@ import Options from '../Options/Options';
 
 
 const App = () => {
-
-  const [feedback, setFeedback] = useState({ good: 0, neutral: 0, bad: 0 })
-
   
-  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  const [feedback, setFeedback] = useState(() => {
 
-  useEffect(() => {
-    window.localStorage.setItem('save-clicks', JSON.stringify(feedback))
-  }, [feedback]);
+    const savedClicks = window.localStorage.getItem('saved-clicks')
+    if (savedClicks !== null) {
+      return JSON.parse(savedClicks);
+    } return {};
+    
+  })
+ 
+const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
 
-  const changeClicksGood = () => {
+useEffect(() => {
+  window.localStorage.setItem('saved-clicks', JSON.stringify(feedback))
+});
+
+      
+   const handleGoodFeedback = () => {
     setFeedback({
       ...feedback,
       good: feedback.good + 1,
     })
   }
   
-  const changeClicksNeutral = () => {
+  const handleNeutralFeedback = () => {
     setFeedback({
       ...feedback,
       neutral: feedback.neutral + 1,
    })
   }
 
-  const changeClicksBad = () => {
+  const handleBadFeedback = () => {
     setFeedback({
       ...feedback,
       bad: feedback.bad + 1,
     })
   }
  
-  const changeClicksReset = () => {
+  const handleResetFeedback = () => {
     setFeedback({
       good: 0,
       neutral: 0,
@@ -52,10 +59,10 @@ const App = () => {
      <Description />
      
      <Options
-       changeClicksGood={changeClicksGood}
-       changeClicksNeutral={changeClicksNeutral}
-       changeClicksBad={changeClicksBad}
-       changeClicksReset={changeClicksReset}
+       handleGoodFeedback={handleGoodFeedback}
+       handleNeutralFeedback={handleNeutralFeedback}
+       handleBadFeedback={handleBadFeedback}
+      handleResetFeedback={handleResetFeedback}
        totalFeedback={totalFeedback} />     
       
      {totalFeedback === 0 &&
