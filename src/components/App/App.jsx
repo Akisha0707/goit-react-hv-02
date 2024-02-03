@@ -9,21 +9,15 @@ import Options from '../Options/Options';
 
 const App = () => {
   
-  const [feedback, setFeedback] = useState(() => {
+  const [feedback, setFeedback] = useState(() =>
 
-    const savedClicks = window.localStorage.getItem('saved-clicks')
-    if (savedClicks !== null) {
-      return JSON.parse(savedClicks);
-    } return {};
+    JSON.parse(window.localStorage.getItem('saved-clicks')) ?? { good: 0, neutral: 0, bad: 0})
+     
+    useEffect(() => {
+      window.localStorage.setItem('saved-clicks', JSON.stringify(feedback), { feedback });
+    });
     
-  })
- 
-const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
-
-useEffect(() => {
-  window.localStorage.setItem('saved-clicks', JSON.stringify(feedback))
-});
-
+   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
       
    const handleGoodFeedback = () => {
     setFeedback({
