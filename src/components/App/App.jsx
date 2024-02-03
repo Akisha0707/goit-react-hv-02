@@ -13,11 +13,11 @@ const App = () => {
 
     JSON.parse(window.localStorage.getItem('saved-clicks')) ?? { good: 0, neutral: 0, bad: 0})
      
-    useEffect(() => {
-      window.localStorage.setItem('saved-clicks', JSON.stringify(feedback), { feedback });
-    });
-    
-   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  useEffect(() => {
+      window.localStorage.setItem('saved-clicks', JSON.stringify(feedback));
+    }, [feedback ]);
+  
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
       
    const handleGoodFeedback = () => {
     setFeedback({
